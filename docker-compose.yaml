@@ -1,0 +1,46 @@
+services:
+  mysql-db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: demo
+      MYSQL_DATABASE: demo
+      MYSQL_USER: demo
+      MYSQL_PASSWORD: demo
+    volumes:
+      - demo-data:/var/lib/mysql
+
+  caddy_proxy:
+    image: caddy:latest
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      # Mount the host Caddyfile
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+
+  frontend:
+    image: m210-frontend:1.0
+    build:
+      context: ./frontend
+      args:
+        - REACT_APP_API_URL:/api
+    ports:
+      - 8081:80
+    depends_on:
+      - backend
+
+  backend:
+    build:
+      context: ./backend
+    image: m210-backend:1.0
+    depends_on:
+      - mysql-db
+    environment:
+      MYSQL_HOST: mysql-db
+
+volumes:
+  demo-data:
+  caddy_data:
+  caddy_config:
