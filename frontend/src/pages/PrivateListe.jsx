@@ -7,7 +7,7 @@ const PrivateListe = () => {
   // doesn't work with vite: const API_URL = (process.env.REACT_APP_API_URL ||"http://localhost:8080") + "/items";
   const API_URL = (import.meta.env.VITE_API_URL ||"http://localhost:8080") + "/items";
 
-
+  //something stupid
   console.log("Private API-URL: ", API_URL)
 
   useEffect(() => {
