@@ -1,6 +1,9 @@
 services:
   mysql-db:
     image: mysql:8.0
+    restart: always
+    ports:
+      - 3306:3306
     environment:
       MYSQL_ROOT_PASSWORD: demo
       MYSQL_DATABASE: demo
@@ -9,8 +12,9 @@ services:
     volumes:
       - demo-data:/var/lib/mysql
 
-  caddy_proxy:
+  caddy-proxy:
     image: caddy:latest
+    restart: always
     ports:
       - 8080:80
       - 8443:443
@@ -21,20 +25,26 @@ services:
       - caddy_config:/config
 
   frontend:
-    image: m210-frontend:1.0
+    image: greenorca/m210-frontend:1.0
     build:
       context: ./frontend
     depends_on:
       - backend
+    restart: always
+    ports:
+      - 80:80
 
   backend:
     build:
       context: ./backend
-    image: m210-backend:1.0
+    image: greenorca/m210-backend:1.0
     depends_on:
       - mysql-db
     environment:
       MYSQL_HOST: mysql-db
+    restart: always
+    ports:
+      - 8080:8080
 
 volumes:
   demo-data:
