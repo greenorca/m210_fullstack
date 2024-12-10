@@ -9,8 +9,8 @@ spec:
   - host: m210.localhost  # Change this to your domain or use an empty string for all hosts
     http:
       paths:
-      - path: /api(/|$)(.*)
-        pathType: ImplementationSpecific
+      - path: /api
+        pathType: Prefix
         backend:
           service:
             name: backend  # Change this to the name of your backend service
