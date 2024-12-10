@@ -3,9 +3,7 @@ kind: Ingress
 metadata:
   name: my-ingress
   namespace: default  # Change to your namespace if needed
-  annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /$2  # Retain the path suffix after `/api`
-    nginx.ingress.kubernetes.io/use-regex: "true"   # Enable regex in paths
+
 spec:
   rules:
   - host: m210.localhost  # Change this to your domain or use an empty string for all hosts
