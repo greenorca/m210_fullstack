@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: my-ingress
+  namespace: default  # Change to your namespace if needed
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - host: m210.localhost  # Change this to your domain or use an empty string for all hosts
+    http:
+      paths:
+      - path: /api
+        pathType: Prefix
+        backend:
+          service:
+            name: backend  # Change this to the name of your backend service
+            port:
+              number: 80  # Change to the correct port if needed
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: frontend  # Change this to the name of your frontend service
+            port:
+              number: 80  # Change to the correct port if needed
+  ingressClassName: nginx
