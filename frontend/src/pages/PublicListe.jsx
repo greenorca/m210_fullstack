@@ -5,7 +5,7 @@ const PublicListe = () => {
 
   const [liste, setListe] = useState([])
 
-  const API_URL = import.meta.env.VITE_API_URL ||"http://localhost:8080/";
+  const API_URL = import.meta.env.VITE_API_URL ||"http://localhost:8080/api";
 
   /*fetch('/config.json')
   .then((response) => response.json())
