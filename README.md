@@ -17,12 +17,12 @@
 
 1. setup MySQL-instance with database, grants and user credentials as in backend/src/main/resources/application.properties
 
-   ```$ docker container run -d --name m450-mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=demo -e MYSQL_USER=demo -e MYSQL_PASSWORD=demo -e MYSQL_DATABASE=demo mysql:8.0```
+   ```docker container run -d --name m450-mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=demo -e MYSQL_USER=demo -e MYSQL_PASSWORD=demo -e MYSQL_DATABASE=demo mysql:8.0```
 
    
-3. run in backend folder: mvn spring-boot:run
-4. run in frontend folder: npm install && npm run dev
-5. open https://m210.localhost:8443
+3. run in backend folder: `mvn spring-boot:run`
+4. run in frontend folder: `npm install && npm run dev`
+5. open <https://m210.localhost:8443>
 
     ![UI without login, displays a public read-only list](img/ui_without_login.png)
 
