@@ -24,7 +24,6 @@ RUN npm run build
 
 FROM httpd:2.4
 
-ENV REACT_APP_API_URL=/api
 COPY --from=build-step /app/dist /usr/local/apache2/htdocs
 #COPY config/config.json /usr/local/apache2/htdocs/config.json
 

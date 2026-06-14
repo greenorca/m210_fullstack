@@ -25,9 +25,11 @@ services:
       - caddy_config:/config
 
   frontend:
-    image: greenorca/m210-frontend:1.0
+    image: greenorca/m210-frontend:1.0-k8s
     build:
       context: ./frontend
+      args:
+        VITE_API_URL: /api
     depends_on:
       - backend
     restart: always

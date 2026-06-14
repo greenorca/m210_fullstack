@@ -21,7 +21,7 @@ spec:
         io.kompose.service: frontend
     spec:
       containers:
-        - image: greenorca/m210-frontend:1.0
+        - image: greenorca/m210-frontend:1.0-k8s
           name: frontend
           ports:
             - containerPort: 80

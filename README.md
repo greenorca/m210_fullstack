@@ -42,6 +42,17 @@ The Web-UI does not yet feature form to add or update list entries.
 * on first docker compose up, repeat (mysql container is not ready quick enough)
 * make sure to properly kill the stack after code changes (docker compose down)
 
+
+## Deploy in Kubernetes
+
+1. K8S installation `sudo snap install microk8s --classic`
+2. enable plugins: 
+    - `microk8s enable hostpath-storage`
+    - `microk8s enable ingress`
+3. load configs: `for file in *.yaml; do microk8s.kubectl apply -f $file; done`
+4. be patient until `microk8s.kubectl get all` shows all deployments are up and running
+5. open <http://m210.localhost>
+
 ## Caddy
 
 * provides central https-secured entrypoint for entire app
