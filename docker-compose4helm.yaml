@@ -1,14 +1,14 @@
 services:
   mysql-db:
     image: mysql:8.0
-    restart: always
     ports:
       - 3306:3306
     environment:
-      MYSQL_ROOT_PASSWORD: demo
-      MYSQL_DATABASE: demo
-      MYSQL_USER: demo
-      MYSQL_PASSWORD: demo
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT:-demo}
+      MYSQL_DATABASE: ${DATABASE:-demo}
+      MYSQL_USER: ${DB_USER:-demo}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-demo}
+    
     volumes:
       - demo-data:/var/lib/mysql
 
@@ -32,7 +32,6 @@ services:
         VITE_API_URL: /api
     depends_on:
       - backend
-    restart: always
     ports:
       - 80:80
 
@@ -41,10 +40,13 @@ services:
       context: ./backend
     image: greenorca/m210-backend:1.0
     depends_on:
-      - mysql-db
+      - mysqldb
     environment:
-      MYSQL_HOST: mysql-db
-    restart: always
+      MYSQL_HOST: mysqldb
+      MYSQL_DATABASE: ${DATABASE:-demo}
+      MYSQL_USER: ${DB_USER:-demo}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-demo}
+      CORS_ALLOW: https://contacts.localhost:8443
     ports:
       - 8080:8080
 

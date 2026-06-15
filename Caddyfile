@@ -1,4 +1,4 @@
-m210.localhost {
+contacts.localhost {
 
     log {
         format console

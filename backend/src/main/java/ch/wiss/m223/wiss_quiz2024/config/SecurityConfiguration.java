@@ -1,6 +1,7 @@
 package ch.wiss.m223.wiss_quiz2024.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -24,6 +25,9 @@ public class SecurityConfiguration {
   private UserDetailsServiceImpl userDetailsService;
   @Autowired
   private AuthenticationEntryPoint unauthorizedHandler;
+
+  @Value("${cors.allow}")
+  private String corsAllow;
 
   private static final String[] EVERYONE = { "/api/public", "/api", "/api/auth/*" };
   private final static String[] SECURE = { "/api/private", "/api/items" };
@@ -52,8 +56,9 @@ public class SecurityConfiguration {
     return new WebMvcConfigurer() {
       @Override
       public void addCorsMappings(CorsRegistry registry) {
+        String[] origins = corsAllow.split(",");
         registry.addMapping("/**")
-            .allowedOrigins("*")
+            .allowedOrigins(origins)
             .allowedMethods("GET", "POST", "PUT", "DELETE");
       }
     };
