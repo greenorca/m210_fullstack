@@ -2,27 +2,14 @@ services:
   mysql-db:
     image: mysql:8.0
     ports:
-      - 3306:3306
+      - 3306:3306 # keep to trigger K8S service discovery
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT:-demo}
       MYSQL_DATABASE: ${DATABASE:-demo}
       MYSQL_USER: ${DB_USER:-demo}
       MYSQL_PASSWORD: ${DB_PASSWORD:-demo}
-    
     volumes:
-      - demo-data:/var/lib/mysql
-
-  caddy-proxy:
-    image: caddy:latest
-    restart: always
-    ports:
-      - 8080:80
-      - 8443:443
-    volumes:
-      # Mount the host Caddyfile
-      - ./Caddyfile:/etc/caddy/Caddyfile
-      - caddy_data:/data
-      - caddy_config:/config
+      - db-data:/var/lib/mysql
 
   frontend:
     image: greenorca/m210-frontend:1.0-k8s
@@ -33,7 +20,7 @@ services:
     depends_on:
       - backend
     ports:
-      - 80:80
+      - 80:80 # keep to trigger K8S service discovery
 
   backend:
     build:
@@ -48,9 +35,7 @@ services:
       MYSQL_PASSWORD: ${DB_PASSWORD:-demo}
       CORS_ALLOW: https://contacts.localhost:8443
     ports:
-      - 8080:8080
+      - 8080:8080 # keep to trigger K8S service discovery
 
 volumes:
-  demo-data:
-  caddy_data:
-  caddy_config:
+  db-data:
