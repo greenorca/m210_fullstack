@@ -2,25 +2,25 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: my-ingress
-  namespace: default  # Change to your namespace if needed
+  namespace: default  
 
 spec:
   rules:
-  - host: m210.localhost  # Change this to your domain or use an empty string for all hosts
+  - host: m210.localhost  
     http:
       paths:
       - path: /api
         pathType: Prefix
         backend:
           service:
-            name: backend  # Change this to the name of your backend service
+            name: backend  
             port:
-              number: 8080  # Change to the correct port if needed
+              number: 8080  
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: frontend  # Change this to the name of your frontend service
+            name: frontend  
             port:
-              number: 80  # Change to the correct port if needed
+              number: 80  
   ingressClassName: nginx

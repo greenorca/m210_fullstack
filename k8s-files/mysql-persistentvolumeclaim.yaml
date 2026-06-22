@@ -1,10 +1,9 @@
-# changed storageClassName
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   labels:
-    io.kompose.service: demo-data
-  name: demo-data
+    io.kompose.service: dbdata
+  name: dbdata
 spec:
   storageClassName: microk8s-hostpath
   accessModes:

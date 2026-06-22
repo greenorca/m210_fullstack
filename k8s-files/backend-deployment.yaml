@@ -1,9 +1,6 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  annotations:
-    kompose.cmd: ./kompose --file m210_fullstack/docker-compose4helm.yaml convert
-    kompose.version: 1.34.0 (cbf2835db)
   labels:
     io.kompose.service: backend
   name: backend
@@ -14,9 +11,6 @@ spec:
       io.kompose.service: backend
   template:
     metadata:
-      annotations:
-        kompose.cmd: ./kompose --file m210_fullstack/docker-compose4helm.yaml convert
-        kompose.version: 1.34.0 (cbf2835db)
       labels:
         io.kompose.service: backend
     spec:
@@ -24,6 +18,12 @@ spec:
         - env:
             - name: MYSQL_HOST
               value: mysql-db
+            - name: MYSQL_DATABASE
+              value: m210db
+            - name: MYSQL_USER
+              value: m210user
+            - name: MYSQL_PASSWORD
+              value: changeme
           image: greenorca/m210-backend:1.0
           name: backend
           ports:
